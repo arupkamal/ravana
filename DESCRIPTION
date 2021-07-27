@@ -1,0 +1,21 @@
+Package: ravana
+Title: R Library For Distributed Computing
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Arup",
+           family = "Kamal",
+           role = c("aut", "cre"),
+           email = "arup.kamal@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: R library for distributed computing.
+Imports:
+	DBI,
+	RPostgres,
+	rjson,
+	memuse,
+	microbenchmark
+License: `use_gpl3_license()`
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
