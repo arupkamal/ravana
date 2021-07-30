@@ -169,7 +169,8 @@ evtFinally <- function(cond){
   NOOP()
 }
 
-
+#' Runs the cluster
+#' @export
 run_worker <- function(){
   tryCatch(task_loop()
            , interrupt = function(c){evtInterrupted(c)}
