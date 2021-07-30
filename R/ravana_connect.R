@@ -54,8 +54,7 @@ connect <- function(settingspath){
 disconnect <- function(){
     tryCatch({
       DBI::dbDisconnect(Ravana$Connection)
-      Ravana$connection <<- NULL}
-      , error=function(c){NOOP()})    
+      Ravana$connection <<- NULL}, error = function(c){NOOP()})    
     message("disconnected from the database") 
 }
   
