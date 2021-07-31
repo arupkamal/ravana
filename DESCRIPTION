@@ -1,5 +1,5 @@
 Package: ravana
-Title: R Library For Distributed Computing
+Title: R Library For Distributed Computing 
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Arup",

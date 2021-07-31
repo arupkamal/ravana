@@ -124,11 +124,11 @@ ravana_reduce <- function (taskid){
     Sys.sleep(0.2)
   }
   
-  sql <- 'SELECT  mappedresults FROM mappedtasks WHERE taskid=?p1'
+  sql <- 'SELECT  mappedparameters, mappedresults FROM mappedtasks WHERE taskid=?p1'
   SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = taskid)
   res <- DBI::dbGetQuery(Ravana$connection, SQL)
   
-  return (list(res$mappedresults))
+  return (res)
 }
 
 
