@@ -77,20 +77,22 @@ ravana_map <- function(rfunction, datatomap){
     clustername      <- Ravana$clustername
     createdby        <- paste0(Sys.info()["login"], "@", Sys.info()["nodename"])
     taskseq          <- i
+    taskuid          <- uuid::UUIDgenerate()
     mappedrfunction  <- rfunctionname
     mappedparameters <- sub("\n", " ",    deparse1(mapdata[[i]], width.cutoff = 500L))
     mappedparameters <- sub("\t", " ",    mappedparameters)
     mappedparameters <- sub("\r", " ",    mappedparameters)
     mappedparameters <- gsub("\\s+", " ", mappedparameters)    
 
-    sql <- "INSERT INTO mappedtasks(taskid, taskseq, clustername, mappedrfunction, mappedparameters, createdby) VALUES (?p1, ?p2, ?p3, ?p4, ?p5, ?p6)"
+    sql <- "INSERT INTO mappedtasks(taskid, taskseq, taskuid, clustername, mappedrfunction, mappedparameters, createdby) VALUES (?p1, ?p2, ?p3, ?p4, ?p5, ?p6, ?p7)"
     SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql
                               , p1 = taskid
                               , p2 = taskseq
-                              , p3 = clustername
-                              , p4 = mappedrfunction
-                              , p5 = mappedparameters
-                              , p6 = createdby)
+                              , p3 = taskuid
+                              , p4 =clustername
+                              , p5 = mappedrfunction
+                              , p6 = mappedparameters
+                              , p7 = createdby)
     DBI::dbExecute(Ravana$connection, SQL)        
     if (i %% 10 == 0) cat(" ..", i)
   }
@@ -133,7 +135,7 @@ ravana_reduce <- function (taskid){
 
 execute_task <- function() {
   if (!exists("Ravana", where = .GlobalEnv)) stop("Can't [set_worker]. Global variable [Ravana] does not exist!")
-  sql = 'SELECT * FROM pick_task(?p1, ?p2)'  
+  sql = 'SELECT * FROM collect_task(?p1, ?p2)'  
   SQL = DBI::sqlInterpolate(DBI::ANSI(), sql, p1  = Ravana$clustername, p2= Sys.info()["nodename"])
   
   res  <- DBI::dbGetQuery(Ravana$connection, SQL)
@@ -148,8 +150,8 @@ execute_task <- function() {
     result <- sub("\r", " ",    result)
     result <- gsub("\\s+", " ", result)    
     
-    sql = "SELECT * FROM submit_task(?p1, ?p2, ?p3)"
-    SQL = DBI::sqlInterpolate(DBI::ANSI(), sql, p1  = Ravana$clustername, p2 = res$taskseq[1], p3 = result)
+    sql = "SELECT * FROM submit_task(?p1, ?p2)"
+    SQL = DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = res$taskuid[1], p2 = result)
     res  <- DBI::dbGetQuery(Ravana$connection, SQL)
     rows <- length(res[,1])
     message(sprintf("TaskSeq %s [%s] completed for %s", res$taskseq[1], res$mappedrfunction[1], Ravana$clustername))
@@ -188,6 +190,6 @@ evtFinally <- function(cond){
 run_worker <- function(){
   tryCatch(task_loop()
            , interrupt = function(c){evtInterrupted(c)}
-           , error     = function(c){evtError(c)}
+           #, error     = function(c){evtError(c)}
            , finally   = function(c){evtFinally(c)})  
 }

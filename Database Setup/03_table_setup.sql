@@ -25,6 +25,7 @@ CREATE TABLE public.mappedtasks
     taskid bigint NOT NULL,
     clustername character varying(100) COLLATE pg_catalog."default",
     taskseq bigint NOT NULL,
+    taskuid UUID  NOT NULL, 
     mappedrfunction character varying(100) COLLATE pg_catalog."default" NOT NULL,
     mappedparameters text COLLATE pg_catalog."default",
     mappedresults text COLLATE pg_catalog."default",
