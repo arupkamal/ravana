@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_create.R
 \name{unset_worker}
 \alias{unset_worker}
-\title{Un-sets the current computer as a worker node.}
+\title{unset_worker}
 \usage{
 unset_worker()
 }

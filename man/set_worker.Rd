@@ -2,8 +2,7 @@
 % Please edit documentation in R/ravana_create.R
 \name{set_worker}
 \alias{set_worker}
-\title{Sets the current computer as a worker node.
-Workers receive tasks, completes them using suggested functions and return the result back to the database.}
+\title{set_worker}
 \usage{
 set_worker()
 }

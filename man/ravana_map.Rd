@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_mapreduce.R
 \name{ravana_map}
 \alias{ravana_map}
-\title{Maps a task expressed as an R function to each element of list.}
+\title{ravana_map}
 \usage{
 ravana_map(rfunction, datatomap)
 }

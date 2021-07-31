@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_mapreduce.R
 \name{share_object}
 \alias{share_object}
-\title{Shares an R object (vector, list, matrix, data frame etc.) in the cluster}
+\title{share_object}
 \usage{
 share_object(robject)
 }

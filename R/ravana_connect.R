@@ -2,15 +2,18 @@
 NOOP <-function(){NOOP<-T}
 
 
-
-#' Loads PostgreSQL database connection settings from the settings.json file. If the file not found, an error will be raised.
+#' load_settings
+#' 
+#' Loads PostgreSQL database connection settings from the settings.json file. 
+#' If the file not found, an error will be raised.
+#' 
 #' @param settingspath Location where the settings.json file is stored.
 load_settings <- function(settingspath){
   if (settingspath == ".") settingspath <- getwd()
   
   settings_file <- paste0(settingspath, "/", "settings.json")
   
-  message("Trying to reading settings from [",settings_file,"]..")
+  message("Reading settings from [",settings_file,"]..")
   
   if (file.exists(settings_file)) {
     settings <- rjson::fromJSON(file = settings_file)
@@ -26,6 +29,8 @@ load_settings <- function(settingspath){
 
 
 
+#' connect
+#' 
 #' Connects to the Ravana database. 
 #' Connection settings are retrieved using the load_settings function. 
 #' Settings are stored in the settings.json file.
@@ -48,7 +53,8 @@ connect <- function(settingspath){
 }
 
 
-
+#' disconnect
+#' 
 #' Disconnects from the Ravana database.
 #' @export 
 disconnect <- function(){

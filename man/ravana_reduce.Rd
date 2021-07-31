@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_mapreduce.R
 \name{ravana_reduce}
 \alias{ravana_reduce}
-\title{Reduces a task which has been already Mapped.}
+\title{ravana_reduce}
 \usage{
 ravana_reduce(taskid)
 }

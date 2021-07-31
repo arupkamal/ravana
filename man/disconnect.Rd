@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_connect.R
 \name{disconnect}
 \alias{disconnect}
-\title{Disconnects from the Ravana database.}
+\title{disconnect}
 \usage{
 disconnect()
 }

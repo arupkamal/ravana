@@ -2,10 +2,10 @@
 % Please edit documentation in R/ravana_mapreduce.R
 \name{run_worker}
 \alias{run_worker}
-\title{Runs the cluster}
+\title{run_worker}
 \usage{
 run_worker()
 }
 \description{
-Runs the cluster
+Starts processing available tasks as an worker node.
 }

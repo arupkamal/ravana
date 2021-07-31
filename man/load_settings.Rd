@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_connect.R
 \name{load_settings}
 \alias{load_settings}
-\title{Loads PostgreSQL database connection settings from the settings.json file. If the file not found, an error will be raised.}
+\title{load_settings}
 \usage{
 load_settings(settingspath)
 }
@@ -10,5 +10,6 @@ load_settings(settingspath)
 \item{settingspath}{Location where the settings.json file is stored.}
 }
 \description{
-Loads PostgreSQL database connection settings from the settings.json file. If the file not found, an error will be raised.
+Loads PostgreSQL database connection settings from the settings.json file.
+If the file not found, an error will be raised.
 }

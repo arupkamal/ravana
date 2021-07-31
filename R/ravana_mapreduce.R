@@ -1,3 +1,5 @@
+#' share_function
+#' 
 #' Shares an R function in the cluster
 #' @param function R function 
 #' @export
@@ -18,6 +20,8 @@ share_function <- function(rfunction){
 }
 
 
+#' share_object
+#' 
 #' Shares an R object (vector, list, matrix, data frame etc.) in the cluster
 #' @param robject R object 
 #' @export
@@ -40,6 +44,8 @@ share_object <- function(robject){
 
 
 
+#' ravana_map
+#' 
 #' Maps a task expressed as an R function to each element of list.
 #' @param rfunction R function
 #' @param mappeddata 
@@ -92,6 +98,8 @@ ravana_map <- function(rfunction, datatomap){
 }
 
 
+#' ravana_reduce
+#' 
 #' Reduces a task which has been already Mapped.
 #' @param rfunction R function
 #' @param taskid 
@@ -155,21 +163,24 @@ task_loop <- function(){
 }
 
 evtInterrupted <- function(e){
-  LogMessage("Worker terminated by user!", "Interruption")
+  LogMessage("Interruption", "Worker terminated by user!")
   message("Ravana: Worker terminated by user!")
   Disconnect()
 }
 
 evtError   <- function(e){
-  LogMessage(e, "Error")
-  message("Error: ", e)
+  LogMessage("Error", e)
+  message("[Error] ", e)
 }
 
 evtFinally <- function(cond){
   NOOP()
 }
 
-#' Runs the cluster
+#' run_worker
+#' 
+#' Starts processing available tasks as an worker node.
+#' 
 #' @export
 run_worker <- function(){
   tryCatch(task_loop()

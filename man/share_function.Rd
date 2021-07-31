@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_mapreduce.R
 \name{share_function}
 \alias{share_function}
-\title{Shares an R function in the cluster}
+\title{share_function}
 \usage{
 share_function(rfunction)
 }

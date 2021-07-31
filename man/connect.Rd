@@ -2,9 +2,7 @@
 % Please edit documentation in R/ravana_connect.R
 \name{connect}
 \alias{connect}
-\title{Connects to the Ravana database.
-Connection settings are retrieved using the load_settings function.
-Settings are stored in the settings.json file.}
+\title{connect}
 \usage{
 connect(settingspath)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_create.R
 \name{heartbeat}
 \alias{heartbeat}
-\title{Sends a heartbeat to the cluster}
+\title{heartbeat}
 \usage{
 heartbeat()
 }

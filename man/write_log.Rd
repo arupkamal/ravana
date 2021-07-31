@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_create.R
 \name{write_log}
 \alias{write_log}
-\title{Write a log record}
+\title{write_log}
 \usage{
 write_log(msgtype, msg)
 }

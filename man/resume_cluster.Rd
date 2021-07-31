@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_create.R
 \name{resume_cluster}
 \alias{resume_cluster}
-\title{Resumes an existing cluster by loading details from the database.}
+\title{resume_cluster}
 \usage{
 resume_cluster(clustername)
 }

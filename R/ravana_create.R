@@ -1,4 +1,7 @@
+#' cluster_exists
+#' 
 #' Checks if a cluster exists.
+#' 
 #' @param clustername Name of the cluster
 #' @export
 cluster_exists <- function(clustername){
@@ -10,7 +13,10 @@ cluster_exists <- function(clustername){
 
 
 
+#' resume_cluster
+#' 
 #' Resumes an existing cluster by loading details from the database.
+#' 
 #' @param clustername Name of the cluster
 #' @export
 resume_cluster <- function(clustername){
@@ -31,6 +37,8 @@ resume_cluster <- function(clustername){
 
 
 
+#' init_cluster
+#' 
 #' Initializes a Ravana cluster and creates an entry in the database. 
 #' If a cluster with the same name already exists, this process will load related functions and variables from the database. 
 #' 
@@ -59,6 +67,8 @@ init_cluster <- function(clustername, settingspath = "."){
 }
 
 
+#' set_worker
+#' 
 #' Sets the current computer as a worker node.
 #' Workers receive tasks, completes them using suggested functions and return the result back to the database.
 #' 
@@ -97,6 +107,8 @@ set_worker <- function (){
 }
 
 
+#' unset_worker
+#' 
 #' Un-sets the current computer as a worker node.
 #' @export
 unset_worker <- function (){
@@ -109,6 +121,8 @@ unset_worker <- function (){
   message(sprintf("[%s] is NOT a worker anymore..", nodename))  
 }
 
+#' heartbeat
+#' 
 #' Sends a heartbeat to the cluster
 #' @export
 heartbeat <- function() {
@@ -117,9 +131,11 @@ heartbeat <- function() {
   sql = "UPDATE nodes SET heartbeat = CURRENT_TIMESTAMP, memfree=?p1 WHERE nodename=?p2;" 
   SQL = DBI::sqlInterpolate(DBI::ANSI(), sql, p1  = memfree, p2 = Sys.info()["nodename"])
   DBI::dbExecute(Ravana$connection, SQL)
-  message("_/\\_")
+  cat("")
 }
 
+#' write_log
+#' 
 #' Write a log record
 #' @export
 write_log <- function(msgtype, msg){

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ravana_create.R
 \name{cluster_exists}
 \alias{cluster_exists}
-\title{Checks if a cluster exists.}
+\title{cluster_exists}
 \usage{
 cluster_exists(clustername)
 }

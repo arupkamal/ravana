@@ -2,8 +2,7 @@
 % Please edit documentation in R/ravana_create.R
 \name{init_cluster}
 \alias{init_cluster}
-\title{Initializes a Ravana cluster and creates an entry in the database.
-If a cluster with the same name already exists, this process will load related functions and variables from the database.}
+\title{init_cluster}
 \usage{
 init_cluster(clustername, settingspath = ".")
 }
