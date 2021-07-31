@@ -21,6 +21,8 @@ output:
   
   4. Create the <b>Ravana tables</b> by running this SQL:https://raw.githubusercontent.com/arupkamal/ravana/blob/main/Database%20Setup/03_table_setup.sql
   
+  5. Create the <b>Ravana functions</b> by running this SQL: https://raw.githubusercontent.com/arupkamal/ravana/main/Database%20Setup/04_function_setup.sql
+  
   <br>
   <br>
   <br>
@@ -35,10 +37,24 @@ output:
      <b>devtools::install_github("arupkamal/ravana")</b>
      
   3. Create the ravana.R file with the following code:
+  <code>
   <br>
   library(ravana)<br>
-  init_cluster('Ravana', settingspath  = 'C:/R')<br>  
+  init_cluster('Ravana', settingspath  = 'C:/R')<br>
+  is_prime <- function(n) {<br>
+    n == 2L || all(n %% 2L:max(2,floor(sqrt(n))) != 0)<br>
+    }<br>
+  #check these numebers if they are primes<br>
+  numbers_to_check <- 10001:10511<br>
+  #share the function in the cluster<br>
+  share_function(is_prime)<br>
+  taskid <- ravana_map(is_prime, numbers_to_check)<br>
+  res = ravana_reduce(taskid)<br>
+  #print all the Prime numbers found through this process<br>
+  print(res[res$mappedresults==TRUE,]$mappedparameters)
+  </code>
   
+  <hr>
   
   <b>Setting up a Worker node</b>
   <hr>
