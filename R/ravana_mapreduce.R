@@ -1,13 +1,16 @@
 #' share_function
 #' 
 #' Shares an R function in the cluster
-#' @param function R function 
+#' @param rfunction R function 
 #' @export
 share_function <- function(rfunction){
   
   if (!exists("Ravana", where = .GlobalEnv)) stop("Global variable [Ravana] does not exist!")
   
   rfunctionname <-deparse(substitute(rfunction))
+  
+  message("R function:", rfunctionname)
+
   Ravana$sharedfunctions[[rfunctionname]]  <<- rfunction  
   
   X <- paste(deparse(Ravana$sharedfunctions), collapse = "\n")
@@ -163,13 +166,13 @@ task_loop <- function(){
 }
 
 evtInterrupted <- function(e){
-  LogMessage("Interruption", "Worker terminated by user!")
+  write_log("Interruption", "Worker terminated by user!")
   message("Ravana: Worker terminated by user!")
   Disconnect()
 }
 
 evtError   <- function(e){
-  LogMessage("Error", e)
+  write_log("Error", e)
   message("[Error] ", e)
 }
 
