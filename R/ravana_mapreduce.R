@@ -141,8 +141,9 @@ execute_task <- function() {
   res  <- DBI::dbGetQuery(Ravana$connection, SQL)
   rows <- length(res[,1])
   
-  if (rows>0){
+  if (rows>0 && !is.na(res$taskuid[1])){
     parameters <- eval(parse(text=res$mappedparameters[1]))
+
     result <- Ravana$sharedfunctions[res$mappedrfunction[1]][[1]](parameters)
     
     result <- sub("\n", " ",    deparse1(result, width.cutoff = 500L))
