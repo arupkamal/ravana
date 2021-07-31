@@ -7,7 +7,7 @@
 share_function(rfunction)
 }
 \arguments{
-\item{function}{R function}
+\item{rfunction}{R function}
 }
 \description{
 Shares an R function in the cluster
