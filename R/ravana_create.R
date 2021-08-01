@@ -32,6 +32,14 @@ resume_cluster <- function(clustername){
   Ravana$sharedfunctions <<- eval(parse(text=res$rfunctions[1]))
   Ravana$sharedvariables <<- eval(parse(text=res$robjects[1]))
   
+  for (i in 1:length(Ravana$sharedfunctions)) {
+    function_name  <- names(Ravana$sharedfunctions[i])
+    message(sprintf("Loading shared function [%s] in Global Environment..", function_name))
+    function_code  <- deparse1(Ravana$sharedfunctions[[i]], collapse="\n")
+    evalcode <- paste(function_name, "<-", function_code)
+    eval(parse(text=evalcode), envir=.GlobalEnv)
+    }  
+  
   message(sprintf("Cluster [%s] resumed successfully.", clustername))
 }
 
