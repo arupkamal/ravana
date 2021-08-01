@@ -116,7 +116,7 @@ ravana_map <- function(rfunction, datatomap){
   target <- 0.05
   progress <- 0
   tick <- 0
-  cat("MAP    Progress [")
+  cat(sprintf("Mapping %s Tasks                Progress [", datalen))
   for (i in 1:datalen) {
     clustername      <- Ravana$clustername
     createdby        <- paste0(Sys.info()["login"], "@", Sys.info()["nodename"])
@@ -173,7 +173,8 @@ ravana_reduce <- function (taskid){
   target <- 0.05
   tick <- 0
   
-  cat("REDUCE Progress [")
+
+  cat(sprintf("Reducing Task [%s]  Progress [", taskid))
   while(progress < 1){
     res      <- DBI::dbGetQuery(Ravana$connection, SQL)
     progress <- res$progress[1]
