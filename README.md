@@ -45,7 +45,7 @@ output:
     n == 2L || all(n %% 2L:max(2,floor(sqrt(n))) != 0)<br>
     }<br>
   #check these numebers if they are primes<br>
-  numbers_to_check <- 10001:10511<br>
+  numbers_to_check <- seq(1000001, 1010001, 2)<br>
   #share the function in the cluster<br>
   share_function(is_prime)<br>
   taskid <- ravana_map(is_prime, numbers_to_check)<br>
