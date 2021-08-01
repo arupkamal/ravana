@@ -37,7 +37,7 @@ output:
      <b>devtools::install_github("arupkamal/ravana")</b>
      
   3. Create the ravana.R file with the following code:
-  <code>
+
   <br>
   library(ravana)<br>
   init_cluster('Ravana', settingspath  = 'C:/R')<br>
@@ -52,7 +52,7 @@ output:
   res = ravana_reduce(taskid)<br>
   #print all the Prime numbers found through this process<br>
   print(res[res$mappedresults==TRUE,]$mappedparameters)
-  </code>
+
   
   <hr>
   
