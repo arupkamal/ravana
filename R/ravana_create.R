@@ -32,13 +32,25 @@ resume_cluster <- function(clustername){
   Ravana$sharedfunctions <<- eval(parse(text=res$rfunctions[1]))
   Ravana$sharedvariables <<- eval(parse(text=res$robjects[1]))
   
-  for (i in 1:length(Ravana$sharedfunctions)) {
-    function_name  <- names(Ravana$sharedfunctions[i])
-    message(sprintf("Loading shared function [%s] in Global Environment..", function_name))
-    function_code  <- deparse1(Ravana$sharedfunctions[[i]], collapse="\n")
-    evalcode <- paste(function_name, "<-", function_code)
-    eval(parse(text=evalcode), envir=.GlobalEnv)
+  if (length(Ravana$sharedfunctions)>0){
+    for (i in 1:length(Ravana$sharedfunctions)) {
+      function_name  <- names(Ravana$sharedfunctions[i])
+      message(sprintf("Loading shared function [%s] in Global Environment..", function_name))
+      function_code  <- deparse1(Ravana$sharedfunctions[[i]], collapse="\n")
+      evalcode <- paste(function_name, "<-", function_code)
+      eval(parse(text=evalcode), envir=.GlobalEnv)
+      }  
+    }
+  
+  if (length(Ravana$sharedobjects)>0){
+    for (i in 1:length(Ravana$sharedobjects)) {
+      obj_name  <- names(Ravana$sharedobjects[i])
+      message(sprintf("Loading shared object [%s] in Global Environment..", obj_name))
+      obj_code  <- deparse1(Ravana$sharedobjects[[i]], collapse="\n")
+      evalcode <- paste(obj_name, "<-", obj_code)
+      eval(parse(text=evalcode), envir=.GlobalEnv)
     }  
+  }  
   
   message(sprintf("Cluster [%s] resumed successfully.", clustername))
 }
