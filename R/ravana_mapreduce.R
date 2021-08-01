@@ -232,6 +232,6 @@ evtFinally <- function(cond){
 run_worker <- function(){
   tryCatch(task_loop()
            , interrupt = function(c){evtInterrupted(c)}
-           #, error     = function(c){evtError(c)}
+           , error     = function(c){evtError(c)}
            , finally   = function(c){evtFinally(c)})  
 }
