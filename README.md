@@ -64,13 +64,13 @@ output:
      <b>devtools::install_github("arupkamal/ravana")</b>
      
   3. Create the worker.R file with the following code:
-  <code>
+  
   <br>
   library(ravana)<br>
   init_cluster('Ravana', settingspath  = 'C:/R')<br>
   set_worker()<br>
   run_worker()<br>
   disconnect()
-  </code>
+  
   
 
