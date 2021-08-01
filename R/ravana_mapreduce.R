@@ -113,6 +113,10 @@ ravana_map <- function(rfunction, datatomap){
   }
 
   datalen = length(mapdata)
+  target <- 0.05
+  progress <- 0
+  tick <- 0
+  cat("MAP    Progress [")
   for (i in 1:datalen) {
     clustername      <- Ravana$clustername
     createdby        <- paste0(Sys.info()["login"], "@", Sys.info()["nodename"])
@@ -134,9 +138,18 @@ ravana_map <- function(rfunction, datatomap){
                               , p6 = mappedparameters
                               , p7 = createdby)
     DBI::dbExecute(Ravana$connection, SQL)        
-    if (i %% 10 == 0) cat(" ..", i)
+    #if (i %% 10 == 0) cat(" ..", i)
+    
+    progress <- (i*1.0/datalen)
+    if (progress >= target) {
+      cat('.')
+      if ((tick+1) %% 5 == 0) cat ("|")
+      target = target + 0.05
+      tick <- tick +1
+    }
+    
   }
-  cat(" ..")
+  cat('.]\n')
   
   message(sprintf("\nMapping completed for [%s] with %d items..", mappedrfunction, datalen))
   return(taskid)
@@ -157,12 +170,22 @@ ravana_reduce <- function (taskid){
   SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = taskid)
   
   progress <- 0
+  target <- 0.05
+  tick <- 0
+  
+  cat("REDUCE Progress [")
   while(progress < 1){
     res      <- DBI::dbGetQuery(Ravana$connection, SQL)
     progress <- res$progress[1]
-    #cat(progress)
+    if (progress >= target) {
+      cat('.')
+      if ((tick+1) %% 5 == 0) cat ("|")
+      target = target + 0.05
+      tick <- tick +1
+      }
     Sys.sleep(0.2)
   }
+  cat('.]\n')
   
   sql <- 'SELECT  mappedparameters, mappedresults FROM mappedtasks WHERE taskid=?p1'
   SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = taskid)

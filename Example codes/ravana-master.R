@@ -1,3 +1,4 @@
+library(ravana)
 
 init_cluster('Ravana', settingspath  = 'C:/R')
 
@@ -8,7 +9,7 @@ is_prime <- function(n) {
 
 
 #check these numebers if they are primes
-numbers_to_check <- seq(1000001, 1010001, 2)
+numbers_to_check <- seq(10001, 10201, 2)
 
 
 #share the function in the cluster
@@ -25,3 +26,4 @@ res = ravana_reduce(taskid)
 
 #print all the Prime numbers found through this process
 print(res[res$mappedresults==TRUE,]$mappedparameters)
+
