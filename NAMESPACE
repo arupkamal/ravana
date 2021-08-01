@@ -2,6 +2,8 @@
 
 export(cluster_exists)
 export(connect)
+export(delete_functions)
+export(delete_objects)
 export(disconnect)
 export(heartbeat)
 export(init_cluster)
