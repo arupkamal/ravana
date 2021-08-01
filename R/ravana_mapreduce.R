@@ -219,7 +219,7 @@ execute_task <- function() {
     SQL = DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = res$taskuid[1], p2 = result)
     res  <- DBI::dbGetQuery(Ravana$connection, SQL)
     rows <- length(res[,1])
-    message(sprintf("TaskSeq %s [%s] completed for %s", res$taskseq[1], res$mappedrfunction[1], Ravana$clustername))
+    message(sprintf("Task(%s, $s) for Function [%s] completed for [%s]", res$taskid[1], res$taskseq[1], res$mappedrfunction[1], Ravana$clustername))
   }
   heartbeat()
 }
