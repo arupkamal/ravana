@@ -1,23 +1,27 @@
 
-p <- function (x){
-  print(names(x))
-  print(x)
-  message("----------------------------\n")
+init_cluster('Ravana', settingspath  = 'C:/R')
+
+
+is_prime <- function(n) {
+  n == 2L || all(n %% 2L:max(2,floor(sqrt(n))) != 0)
 }
 
 
-hi <- function() {
-  print("Hi")
-}
+#check these numebers if they are primes
+numbers_to_check <- seq(1000001, 1010001, 2)
 
-share_function(hi)
 
-init_cluster('Ravana', settingspath = 'C:/R')
-#lapply(Ravana$sharedfunctions, p)
+#share the function in the cluster
+share_function(is_prime)
 
-for (i in 1:length(Ravana$sharedfunctions)) {
-  function_name  <- names(Ravana$sharedfunctions[i])
-  function_code  <- deparse1(Ravana$sharedfunctions[[i]], collapse="\n")
-  evalcode <- paste(function_name, "<-", function_code)
-  eval(parse(text=evalcode), envir=.GlobalEnv)
-}
+
+#share the object in the cluster
+share_object(numbers_to_check)
+
+
+taskid <- ravana_map(is_prime, numbers_to_check)
+res = ravana_reduce(taskid)
+
+
+#print all the Prime numbers found through this process
+print(res[res$mappedresults==TRUE,]$mappedparameters)
