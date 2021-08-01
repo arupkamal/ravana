@@ -37,22 +37,33 @@ output:
      <b>devtools::install_github("arupkamal/ravana")</b>
      
   3. Create the ravana.R file with the following code:
-  <code>
+
   <br>
-  library(ravana)<br>
-  init_cluster('Ravana', settingspath  = 'C:/R')<br>
-  is_prime <- function(n) {<br>
-    n == 2L || all(n %% 2L:max(2,floor(sqrt(n))) != 0)<br>
-    }<br>
-  #check these numebers if they are primes<br>
-  numbers_to_check <- 10001:10511<br>
-  #share the function in the cluster<br>
-  share_function(is_prime)<br>
-  taskid <- ravana_map(is_prime, numbers_to_check)<br>
-  res = ravana_reduce(taskid)<br>
-  #print all the Prime numbers found through this process<br>
-  print(res[res$mappedresults==TRUE,]$mappedparameters)
-  </code>
+  <pre>
+library(ravana)
+  
+init_cluster('Ravana', settingspath  = 'C:/R')
+  
+is_prime <- function(n) {
+    n == 2L || all(n %% 2L:max(2,floor(sqrt(n))) != 0)
+    }
+
+#check these numebers if they are primes
+numbers_to_check <- seq(1000001, 1010001, 2)
+  
+#share the function in the cluster
+share_function(is_prime)
+
+#share the object in the cluster
+share_object(numbers_to_check)
+
+
+taskid <- ravana_map(is_prime, numbers_to_check)
+res = ravana_reduce(taskid)
+  
+#print all the Prime numbers found through this process
+print(res[res$mappedresults==TRUE,]$mappedparameters)
+</pre>
   
   <hr>
   
@@ -64,13 +75,14 @@ output:
      <b>devtools::install_github("arupkamal/ravana")</b>
      
   3. Create the worker.R file with the following code:
-  <code>
+  
   <br>
-  library(ravana)<br>
-  init_cluster('Ravana', settingspath  = 'C:/R')<br>
-  set_worker()<br>
-  run_worker()<br>
+  <pre>
+  library(ravana)
+  init_cluster('Ravana', settingspath  = 'C:/R')
+  set_worker()
+  run_worker()
   disconnect()
-  </code>
+  </pre>
   
 
