@@ -1,3 +1,43 @@
+#' delete_functions
+#' 
+#' Delete all shared functions
+#' @export
+delete_functions <- function(){
+  
+  if (!exists("Ravana", where = .GlobalEnv)) stop("Global variable [Ravana] does not exist!")
+  
+  Ravana$sharedfunctions  <<- list()
+  
+  X <- paste(deparse(Ravana$sharedfunctions), collapse = "\n")
+  
+  sql <- "UPDATE clusters SET rfunctions=?p1 WHERE clustername=?p2"
+  SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = X, p2 = Ravana$clustername)
+  
+  DBI::dbExecute(Ravana$connection, SQL)
+  message(sprintf("All functions deleted from the Cluster [%s]", Ravana$clustername))  
+}
+
+
+
+#' delete_objects
+#' 
+#' Delete all shared objects
+#' @export
+delete_objects <- function(){
+  
+  if (!exists("Ravana", where = .GlobalEnv)) stop("Global variable [Ravana] does not exist!")
+  
+  Ravana$sharedobjects  <<- list()
+  
+  X <- paste(deparse(Ravana$sharedobjects), collapse = "\n")
+  
+  sql <- "UPDATE clusters SET robjects=?p1 WHERE clustername=?p2"
+  SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = X, p2 = Ravana$clustername)
+  
+  DBI::dbExecute(Ravana$connection, SQL)
+  message(sprintf("All objects deleted from the Cluster [%s]", Ravana$clustername))  
+}
+
 #' share_function
 #' 
 #' Shares an R function in the cluster
@@ -146,10 +186,11 @@ execute_task <- function() {
 
     result <- Ravana$sharedfunctions[res$mappedrfunction[1]][[1]](parameters)
     
-    result <- sub("\n", " ",    deparse1(result, width.cutoff = 500L))
-    result <- sub("\t", " ",    result)
-    result <- sub("\r", " ",    result)
-    result <- gsub("\\s+", " ", result)    
+    result  <- deparse1(result, collapse = '\n')
+    #result <- sub("\n", " ",    deparse1(result, width.cutoff = 500L))
+    #result <- sub("\t", " ",    result)
+    #result <- sub("\r", " ",    result)
+    #result <- gsub("\\s+", " ", result)    
     
     sql = "SELECT * FROM submit_task(?p1, ?p2)"
     SQL = DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = res$taskuid[1], p2 = result)
