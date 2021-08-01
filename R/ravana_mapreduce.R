@@ -160,7 +160,7 @@ ravana_reduce <- function (taskid){
   while(progress < 1){
     res      <- DBI::dbGetQuery(Ravana$connection, SQL)
     progress <- res$progress[1]
-    cat(progress)
+    #cat(progress)
     Sys.sleep(0.2)
   }
   
