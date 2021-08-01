@@ -6,7 +6,7 @@ Authors@R:
            family = "Kamal",
            role = c("aut", "cre"),
            email = "arup.kamal@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "https://orcid.org/0000-0001-6067-8532"))
 Description: R library for distributed computing.
 Imports:
 	DBI,
