@@ -38,3 +38,26 @@ BEGIN
 	RETURN task_row;
 END
 $$;
+
+
+CREATE OR REPLACE FUNCTION job_stats (IN_clustername varchar(100))
+RETURNS TABLE (task text,
+			   job_status varchar,
+			   count_of_jobs bigint
+	)
+LANGUAGE plpgsql
+AS
+$$
+DECLARE 
+	task_row mappedtasks;
+BEGIN
+	RETURN QUERY SELECT * FROM 
+	((SELECT CONCAT(mappedrfunction, chr(10), taskid, chr(10), nodename) AS task, status AS job_status, COUNT(taskuid) AS count_of_jobs FROM mappedtasks
+	WHERE clustername=IN_clustername and status <> 'Closed'
+	GROUP BY nodename, taskid, mappedrfunction, status ORDER BY taskid DESC)
+	UNION
+	(SELECT CONCAT(mappedrfunction, chr(10), taskid) AS task, status AS job_status, COUNT(taskuid) AS count_of_jobs FROM mappedtasks
+	WHERE clustername=IN_clustername and status = 'Closed'
+	GROUP BY taskid, mappedrfunction, status ORDER BY taskid DESC LIMIT 2)) AS T;
+END
+$$;
