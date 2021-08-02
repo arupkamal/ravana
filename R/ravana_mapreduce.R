@@ -187,6 +187,10 @@ ravana_reduce <- function (taskid){
     Sys.sleep(0.2)
   }
   cat('.]\n')
+
+  sql <- "UPDATE  mappedtasks SET status ='Closed' WHERE taskid=?p1"
+  SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = taskid)
+  res <- DBI::dbExecute(Ravana$connection, SQL)
   
   sql <- 'SELECT  mappedparameters, mappedresults FROM mappedtasks WHERE taskid=?p1'
   SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = taskid)

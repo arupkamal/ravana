@@ -31,7 +31,7 @@ CREATE TABLE public.mappedtasks
     mappedresults text COLLATE pg_catalog."default",
     createdby character varying(50) COLLATE pg_catalog."default" NOT NULL,
     createdon timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    nodename character varying(100) COLLATE pg_catalog."default",
+    nodename character varying(100) NOT NULL DEFAULT 'Unassigned'::varchar COLLATE pg_catalog."default",
     status character varying(20) COLLATE pg_catalog."default" DEFAULT 'Ready'::character varying,
     progress double precision DEFAULT 0,
     collected timestamp without time zone,
