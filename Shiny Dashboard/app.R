@@ -47,13 +47,12 @@ server <- function(input, output) {
                         setTimeout(reload_page, 10000);
                        ")
         
-        ravana::init_cluster('Ravana', settingspath = 'C:/R')
         sql <- "SELECT * FROM job_stats(?p1)"
         SQL <- DBI::sqlInterpolate(DBI::ANSI(), sql, p1 = 'Ravana')
         res      <- DBI::dbGetQuery(Ravana$connection, SQL)
         ravana::disconnect()
         res$count_of_jobs <- as.numeric(res$count_of_jobs)
-        ggplot(data = res, aes(x = task , y = count_of_jobs, fill = job_status   )) +  geom_bar(stat='identity')        + theme(text = element_text(size=20))        + theme(legend.position="bottom") + labs(x = "Function - Tasks - Node", y= "Count of Sub-Tasks", fill = "Task Status")
+        ggplot(data = res, aes(x = task , y = count_of_jobs, fill = job_status)) +  geom_bar(stat='identity') + theme(text = element_text(size=14))        + theme(legend.position="bottom") + labs(x = "Function - Tasks - Node", y= "Count of Sub-Tasks", fill = "Task Status")
         
     })
     
