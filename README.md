@@ -19,7 +19,7 @@ output:
   
   3. Create the <b>Ravana user</b>   by running this SQL: https://github.com/arupkamal/ravana/blob/main/Database%20Setup/02_role_setup.sql
   
-  4. Create the <b>Ravana tables</b> by running this SQL:https://raw.githubusercontent.com/arupkamal/ravana/blob/main/Database%20Setup/03_table_setup.sql
+  4. Create the <b>Ravana tables</b> by running this SQL: https://github.com/arupkamal/ravana/blob/main/Database%20Setup/03_table_setup.sql
   
   5. Create the <b>Ravana functions</b> by running this SQL: https://raw.githubusercontent.com/arupkamal/ravana/main/Database%20Setup/04_function_setup.sql
   
